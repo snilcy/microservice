@@ -1,0 +1,24 @@
+{
+  "type": "module",
+  "name": "micorservices",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node --experimental-specifier-resolution=node ./test",
+    "start:service": "node --experimental-specifier-resolution=node ./src/Service",
+    "test": "NODE_OPTIONS=--experimental-vm-modules jest",
+    "test:service": "npm run test -- --testNamePattern=\"Service\" --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.26.1",
+    "express": "^4.17.3"
+  },
+  "devDependencies": {
+    "@types/jest": "^27.4.1",
+    "jest": "^27.5.1"
+  }
+}
