@@ -2,7 +2,7 @@ import axios from 'axios';
 import { URL } from 'url';
 import { Root } from '../src/Root';
 import { Node } from '../src/Node';
-import { Service } from '../src/Service';
+import { Service } from '../src/Service/_index';
 
 const config = {
   name: 'user',

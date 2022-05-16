@@ -1,6 +1,6 @@
 import { jest } from '@jest/globals';
 
-import { Service, ServiceDataPrivaceError } from '.';
+import { Service, ServiceDataPrivaceError } from './_index';
 import { cloneDeep, deepEqual, map } from '../utils';
 
 const wait = (time) =>
@@ -16,64 +16,68 @@ const testUser = {
 const serviceName = 'TestService';
 
 const serviceData = {
-  users: {
-    137: {
-      name: 'Johnny',
-    },
-  },
-  isAuth: false,
-  role: undefined,
-  items: [testUser, testUser],
+  // users: {
+  //   137: {
+  //     name: 'Johnny',
+  //   },
+  // },
+  // isAuth: false,
+  // role: undefined,
+  // items: [testUser, testUser],
+  // price: 137,
+  // usersCount: 731,
 };
 
 const serviceMethods = {
-  toggleAuth() {
-    this.isAuth = !this.isAuth;
+  get foo() {
+    return Math.random() > 0.5 ? 'foo' : 'bar';
   },
-  addUser(userId, name) {
-    this.users[userId] = { name };
-  },
-  addItemsUser() {
-    this.items.push(testUser);
-  },
-  hello() {
-    console.log('Hello from ', this.serviceName);
-  },
-  pritUsers() {
-    console.log('pritUsers', this.users);
-  },
-  async setDbUserObviously(userId, name) {
-    await wait(13.7);
-    this.users[userId] = { name };
-  },
-  async setDbUser(userId, name) {
-    await wait(13.7);
-    this.addUser(userId, name);
-  },
-  async setDbUserProxyfy(userId, name) {
-    return wait(13.1)
-      .then(() => wait(13.2))
-      .then((value) =>
-        this.update(() => {
-          this.users[userId] = { name };
-        })
-      );
-  },
+  // toggleAuth() {
+  //   this.isAuth = !this.isAuth;
+  // },
+  // addUser(userId, name) {
+  //   this.users[userId] = { name };
+  // },
+  // addItemsUser() {
+  //   this.items.push(testUser);
+  // },
+  // hello() {
+  //   console.log('Hello from ', this.serviceName);
+  // },
+  // pritUsers() {
+  //   console.log('pritUsers', this.users);
+  // },
+  // async setDbUserObviously(userId, name) {
+  //   await wait(13.7);
+  //   this.users[userId] = { name };
+  // },
+  // async setDbUser(userId, name) {
+  //   await wait(13.7);
+  //   this.addUser(userId, name);
+  // },
+  // async setDbUserProxyfy(userId, name) {
+  //   return wait(13.1)
+  //     .then(() => wait(13.2))
+  //     .then((value) =>
+  //       this.update(() => {
+  //         this.users[userId] = { name };
+  //       })
+  //     );
+  // },
 };
 
-const serviceParams = {
-  ...serviceData,
-  ...serviceMethods,
-};
+const serviceParams = Object.assign({}, serviceData, serviceMethods);
 
 let service;
 let serviceProxy;
 let mockListener;
 
+console.log(Object.getOwnPropertyDescriptor(serviceParams, 'foo'));
+
 beforeEach(() => {
-  service = new Service(serviceName, cloneDeep(serviceParams));
-  serviceProxy = service.proxy;
-  mockListener = jest.fn();
+  // service = new Service(serviceName, cloneDeep(serviceParams));
+  // serviceProxy = service.proxy;
+  // mockListener = jest.fn();
 });
 
 describe('Service', () => {
@@ -270,6 +274,11 @@ describe('Service', () => {
         expect(mockListener).toBeCalledTimes(1);
         expect(mockListener).toBeCalledWith(expectedData, expectedChanges);
       });
+    });
+  });
+  describe('Computed', () => {
+    test.only('Should return cashed value', () => {
+      expect(1).toBe(1);
     });
   });
 });

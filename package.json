@@ -7,6 +7,7 @@
   "scripts": {
     "start": "node --experimental-specifier-resolution=node ./test",
     "start:service": "node --experimental-specifier-resolution=node ./src/Service",
+    "start:root": "node --experimental-specifier-resolution=node ./src/Root",
     "test": "NODE_OPTIONS=--experimental-vm-modules jest",
     "test:service": "npm run test -- --testNamePattern=\"Service\" --watch"
   },
@@ -15,7 +16,9 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^0.26.1",
-    "express": "^4.17.3"
+    "express": "^4.17.3",
+    "socket.io": "^4.4.1",
+    "ws": "^8.5.0"
   },
   "devDependencies": {
     "@types/jest": "^27.4.1",

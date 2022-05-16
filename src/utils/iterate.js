@@ -24,7 +24,15 @@ export const _map = (callback, target) => (obj) =>
 export const cloneDeep = (data) =>
   map(
     data,
-    (value) => (isObject(value) ? cloneDeep(value) : value),
+    (value, key) => {
+      console.log({
+        data,
+        key,
+        value,
+        descr: Object.getOwnPropertyDescriptor(data, key),
+      });
+      // return isObject(value) ? cloneDeep(value) : value;
+    },
     isArray(data) ? [] : {}
   );
 
